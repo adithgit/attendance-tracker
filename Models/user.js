@@ -16,11 +16,7 @@ const userSchema = new mongoose.Schema({
         exit:{
             time:{
                 type:Date
-            },
-            // 1 - General
-            // 2 - Vacation
-            // 3 - Doctor
-            reason:Number
+            }
         }
 
    }]
