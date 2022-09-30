@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
                 type:Date
             }
         }
-
    }]
 }, {
   usePushEach: true

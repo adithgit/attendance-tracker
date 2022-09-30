@@ -22,7 +22,7 @@ router.post('/users', async (req, res) => {
         }
         const user = new User(req.body);
         await user.save();
-        res.status(200).send({message:`${user.name} has been added`});
+        res.status(200).send({message:`${user.name} has been added with id : ${user._id}`});
     } catch (error) {
         res.status(500).send({ message: 'Something went wrong' });
     }
@@ -90,17 +90,12 @@ router.post("/user/:id/enter", async (req, res) => {
         //if the user has an attendance array;
         if (user.attendance && user.attendance.length > 0) {
             //for a new checkin attendance, the last checkin
-            //must be at least 24hrs less than the new checkin time;
             const lastCheckIn = user.attendance[user.attendance.length - 1];
-            const lastCheckInTimestamp = lastCheckIn.date.getTime();
-            // console.log(Date.now(), lastCheckInTimestamp);
-            if (Date.now() > lastCheckInTimestamp + 10000) {
-                user.attendance.push(data);
-                await user.save();
-                return res.status(200).send({message:'signed in.'});
-            } else {
-                return res.status(400).send({message:'already signed in.'});
-            }
+            console.log(lastCheckIn);
+            if(!lastCheckIn.exit.time) return res.status(400).send({message:'already signed in.'});
+            user.attendance.push(data);
+            await user.save();
+            return res.status(200).send({message:'signed in.'});
         } else {
             user.attendance.push(data);
             await user.save();    
