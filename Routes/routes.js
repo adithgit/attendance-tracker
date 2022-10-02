@@ -3,6 +3,7 @@ const router = require('express').Router();
 const User = require('../Models/user');
 
 
+
 //get all users
 router.get("/", async (req, res) => {
     try {
@@ -175,3 +176,4 @@ function generateUserOverview(user) {
 }
 
 module.exports = router;
+
